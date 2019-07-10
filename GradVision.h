@@ -92,7 +92,7 @@ struct AllParameters_grad {
 
 class GradVision : public ImgProc {
 public:
-    GradVision();
+    GradVision(string config_path);// 请给一个绝对路径，谢谢
     ~GradVision();
 
 public: // 假装是接口的函数
@@ -111,7 +111,7 @@ public: // 假装是接口的函数
     cv::Mat GetUsedChannel(cv::Mat& src_img, int flag);                     // 获得使用的通道
 
 public: // 真实的接口函数
-    void LoadParameters();                                                  // 从文件加载参数
+    void LoadParameters(string config_path);                                // 从文件加载参数(注意为绝对路径)
 
     void StoreParameters();                                                 // 将参数存到文件
 

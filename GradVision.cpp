@@ -1,10 +1,10 @@
 #include "GradVision.h"
 
-GradVision::GradVision() {
+GradVision::GradVision(string config_path) {
     final_result_.valid_    = false;
     start_file_num_         = 0;
     max_file_num_           = 500;
-    this->LoadParameters();
+    this->LoadParameters(config_path);
 }
 
 GradVision::~GradVision() {}
@@ -210,13 +210,9 @@ cv::Mat GradVision::GetFeatureVec(cv::Rect roi) {
 
 
 
-void GradVision::LoadParameters() {
-#ifdef ADJUST_PARAMETER
-    std::ifstream in_file("./7.txt");
-
-#else    
-    std::ifstream in_file("../source/data/set_sprint_param/7.txt");
-#endif
+void GradVision::LoadParameters(string config_path) {
+    std::ifstream in_file(config_path);
+    
     if (!in_file) {
         cerr<<"Error:"<<__FILE__
                 <<":line"<<__LINE__<<endl
