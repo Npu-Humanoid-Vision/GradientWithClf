@@ -3,7 +3,7 @@
 
 cv::VideoCapture cp(0);
 cv::Mat frame;
-GradVision test_vision;
+GradVision test_vision("./7.txt");
 GradVisionResult gabage;
 AllParameters_grad all_p;    
 

@@ -1,7 +1,8 @@
 .vscode
-Neg
-Pos
 Raw
+Rotated
+Test
+Train
 Model
 
 *.o
@@ -17,3 +18,4 @@ Model
 *.sh
 
 *.xml
+*.txt

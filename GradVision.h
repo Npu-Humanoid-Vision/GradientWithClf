@@ -53,8 +53,6 @@ protected:
 #endif 
 
 
-enum { H,S,V,L,A,B };
-
 // adjust_parameter
 class GradVisionResult : public ImgProcResult
 {
