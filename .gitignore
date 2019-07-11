@@ -1,5 +1,7 @@
 .vscode
-Data
+Neg
+Pos
+Raw
 Model
 
 *.o
