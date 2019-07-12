@@ -31,6 +31,7 @@ template<class CLF_TYPE>
 void GetXX(cv::Mat& test_data, CLF_TYPE& tester, int lable, int& true_num, int& false_num);
 void GetScores(string test_data_path, string model_path, EvaluationValues& scores);
 
+void DataPretreat();
 string Train_csvc(double C);
 void Evaluation(string model_path);
 
@@ -106,7 +107,7 @@ void GetXsSampleData(const string folder_path, int lable,
     GetImgNames(folder_path, image_names);
 
     // define hog descriptor 
-    cv::HOGDescriptor hog_des(Size(128, 128), Size(16, 16), Size(8, 8), Size(8, 8), 9);
+    cv::HOGDescriptor hog_des(Size(IMG_COL, IMG_ROW), Size(16, 16), Size(8, 8), Size(8, 8), 9);
 
     // read images and compute
     for (auto i = image_names.begin(); i != image_names.end(); i++) {
@@ -217,7 +218,9 @@ void GetScores(string test_data_path, string model_path, EvaluationValues& score
     cv::Mat test_data_pos;
     cv::Mat test_data_neg;
     cv::Mat test_data_lables;
+
     GetXsSampleData(test_data_path+"/Pos/", POS_LABLE, test_data_pos, test_data_lables);
+
     GetXsSampleData(test_data_path+"/Neg/", NEG_LABLE, test_data_neg, test_data_lables);
     cout<<"test data size: "<<test_data_lables.size()<<endl;
 
@@ -242,6 +245,12 @@ void GetScores(string test_data_path, string model_path, EvaluationValues& score
     return ;
 }
 
+void DataPretreat() {
+	system("cd ./Data/ && sh rm_gabage.sh");
+	system("cd ./Data/ && sh init.sh");
+	system("cd ./Data/ && sh run_rotater.sh");
+	system("cd ./Data/ && python Devider.py");
+}
 
 
 string Train_csvc(double C) {
@@ -251,7 +260,9 @@ string Train_csvc(double C) {
     cout<<pos_root_path<<endl<<neg_root_path<<endl;
     cv::Mat train_data;
     cv::Mat train_data_lables;
+
     GetXsSampleData(pos_root_path, POS_LABLE, train_data, train_data_lables);
+
     GetXsSampleData(neg_root_path, NEG_LABLE, train_data, train_data_lables);
     cout<<train_data.size()<<' '<<train_data_lables.size()<<endl;
 

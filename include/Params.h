@@ -33,9 +33,11 @@ enum { H,S,V,L,A,B };
 #define IMG_COL 128 
 #define IMG_ROW 128 
 
-#define MODEL_PATH "D:/baseRelate/code/NpuHumanoidVision/BackUpProj/GradientWithClf/ClfTrain/Model/"
+#define MODEL_PATH "./Model/"
 
 #define TESTSET_PATH "./Data/Test/"
 #define TRAINSET_PATH "./Data/Train/"
+
+#define RAW_DATA_PATH "./Data/Raw/"
 
 #endif
