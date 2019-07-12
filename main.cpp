@@ -26,10 +26,10 @@ int main(int argc, char const *argv[]) {
 
     cv::namedWindow("set_params", CV_WINDOW_NORMAL);
     
-    cv::createTrackbar("gaus_size", "set_params", &all_p.gaus_size, 255);
-    cv::createTrackbar("channel_idx", "set_params", &all_p.channel_idx, 255);
+    cv::createTrackbar("gaus_size", "set_params", &all_p.gaus_size, 17);
+    cv::createTrackbar("channel_idx", "set_params", &all_p.channel_idx, 5);
     cv::createTrackbar("grad_thre", "set_params", &all_p.grad_thre, 255);
-    cv::createTrackbar("area_thre", "set_params", &all_p.area_thre, 255);
+    cv::createTrackbar("area_thre", "set_params", &all_p.area_thre, 100);
     cv::createTrackbar("wh_rate", "set_params", &wh_rate_int, 120);
 
     while (1) {

@@ -10,6 +10,9 @@ GradVision::GradVision(string config_path) {
 GradVision::~GradVision() {}
 
 void GradVision::imageProcess(cv::Mat input_image, ImgProcResult* output_result) {
+    std::vector<cv::Rect> possible_rects;
+    std::vector<cv::RotatedRect> possible_rrects;
+
     std::vector<cv::Rect> pos_rects;
     std::vector<cv::RotatedRect> pos_rrects;
     cv::Point2f ro_rect_points[4];
@@ -19,20 +22,20 @@ void GradVision::imageProcess(cv::Mat input_image, ImgProcResult* output_result)
     src_image_ = input_image.clone();
     pretreaded_image_ = Pretreat(src_image_);
     thresholded_image_ = ProcessGrad();
-    GetPossibleRect(thresholded_image_, possible_rects_, possible_rrects_);
+    GetPossibleRect(thresholded_image_, possible_rects, possible_rrects);
 
-    for (size_t i=0; i<possible_rects_.size(); i++) {
-        cv::Rect t_bound_box = possible_rects_[i];
+    for (size_t i=0; i<possible_rects.size(); i++) {
+        cv::Rect t_bound_box = possible_rects[i];
         cv::Mat roi = src_image_(t_bound_box).clone();
         cv::Mat feature_in_mat = GetFeatureVec(t_bound_box);
 
         int lable = (int)svm_classifier_.predict(feature_in_mat);
 
         if (lable == POS_LABLE) {
-            pos_rects.push_back(possible_rects_[i]);
-            pos_rrects.push_back(possible_rrects_[i]);
+            pos_rects.push_back(possible_rects[i]);
+            pos_rrects.push_back(possible_rrects[i]);
 
-            possible_rrects_[i].points(ro_rect_points);
+            possible_rrects[i].points(ro_rect_points);
             for (int i=0; i<4; i++) {
                 cv::line(for_show_, ro_rect_points[i], ro_rect_points[(i+1)%4], cv::Scalar(255, 255, 0));
             }
@@ -94,6 +97,7 @@ cv::Mat GradVision::ProcessGrad() {
     cv::Mat grad_x;
     cv::Mat grad_y;
 
+    SHOW_IMAGE("used_channel", used_channel_);
     cv::Sobel(used_channel_, grad_x, CV_16S, 1, 0);
     cv::Sobel(used_channel_, grad_y, CV_16S, 0, 1);
     cv::convertScaleAbs(grad_x, grad_x);
@@ -240,6 +244,9 @@ void GradVision::LoadParameters(string config_path) {
             break;
         case 4:
             ins >> wh_rate_thre_;
+            break;
+        case 5:
+            ins >> svm_model_name_;
             break;
        }
     }

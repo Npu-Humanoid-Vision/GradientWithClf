@@ -122,8 +122,6 @@ public: // 数据成员
     cv::Mat pretreaded_image_;
     cv::Mat used_channel_;
     cv::Mat thresholded_image_;
-    std::vector<cv::Rect> possible_rects_;
-    std::vector<cv::RotatedRect> possible_rrects_;
     CvSVM svm_classifier_;
     GradVisionResult final_result_;
 
