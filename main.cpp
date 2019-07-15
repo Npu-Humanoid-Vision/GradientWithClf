@@ -1,9 +1,9 @@
 
 #include "GradVision.h"
 
-cv::VideoCapture cp(0);
+cv::VideoCapture cp;
+GradVision test_vision;
 cv::Mat frame;
-GradVision test_vision("./7.txt");
 GradVisionResult gabage;
 AllParameters_grad all_p;    
 
@@ -11,6 +11,18 @@ AllParameters_grad all_p;
 // #define RUN_ON_DARWIN 
 
 int main(int argc, char const *argv[]) {
+    if (argc == 2) {
+        // cout<<argv[0]<<' '<<argv[1]<<endl;
+        cp.open((int)(argv[1][0]-'0'));
+    }
+    else if (argc == 3) {
+        cp.open((int)(argv[1][0]-'0'));
+        test_vision.LoadParameters(argv[2]);
+    }
+    else {
+        cp.open(0);
+    }   
+
     if (!cp.isOpened()) {
         cerr<<"open camera fail"<<endl;
         return -1;
@@ -29,7 +41,7 @@ int main(int argc, char const *argv[]) {
     cv::createTrackbar("gaus_size", "set_params", &all_p.gaus_size, 17);
     cv::createTrackbar("channel_idx", "set_params", &all_p.channel_idx, 5);
     cv::createTrackbar("grad_thre", "set_params", &all_p.grad_thre, 255);
-    cv::createTrackbar("area_thre", "set_params", &all_p.area_thre, 100);
+    cv::createTrackbar("area_thre", "set_params", &all_p.area_thre, 1000);
     cv::createTrackbar("wh_rate", "set_params", &wh_rate_int, 120);
 
     while (1) {

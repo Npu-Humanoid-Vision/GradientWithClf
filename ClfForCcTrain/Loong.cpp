@@ -13,8 +13,15 @@ int main(int argc, char const *argv[]) {
     Evaluation(m_p);
 
     tester.load(m_p.c_str());
-
-    cv::VideoCapture cp(1);
+    
+    cv::VideoCapture cp;
+    if (argc > 1) {
+        cout<<argv[0]<<' '<<argv[1]<<endl;
+        cp.open((int)(argv[1][0]-'0'));
+    }
+    else {
+        cp.open(0);
+    }   
     cv::Mat frame; 
     int roi_rect_x = 100;
     int roi_rect_y = 100;

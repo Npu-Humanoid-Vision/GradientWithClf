@@ -90,6 +90,7 @@ struct AllParameters_grad {
 
 class GradVision : public ImgProc {
 public:
+    GradVision();
     GradVision(string config_path);// 请给一个绝对路径，谢谢
     ~GradVision();
 

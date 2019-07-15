@@ -1,5 +1,11 @@
 #include "GradVision.h"
 
+GradVision::GradVision() {
+    final_result_.valid_    = false;
+    start_file_num_         = 0;
+    max_file_num_           = 500;
+}
+
 GradVision::GradVision(string config_path) {
     final_result_.valid_    = false;
     start_file_num_         = 0;
