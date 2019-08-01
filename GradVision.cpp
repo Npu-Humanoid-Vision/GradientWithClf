@@ -11,6 +11,7 @@ GradVision::GradVision(string config_path) {
     start_file_num_         = 0;
     max_file_num_           = 500;
     this->LoadParameters(config_path);
+    used_param_txt_ = config_path;
 }
 
 GradVision::~GradVision() {}
@@ -264,7 +265,7 @@ void GradVision::LoadParameters(string config_path) {
 }
 
 void GradVision::StoreParameters() {
-    std::ofstream out_file("./7.txt");
+    std::ofstream out_file(used_param_txt_);
     if (!out_file) {
         cerr<<"Error:"<<__FILE__
                 <<":line"<<__LINE__<<endl

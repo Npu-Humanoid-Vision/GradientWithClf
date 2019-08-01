@@ -119,6 +119,8 @@ public: // 真实的接口函数
     void WriteImg(cv::Mat src, string folder_name, int num);                // 写图片
 
 public: // 数据成员
+    string used_param_txt_;
+
     cv::Mat src_image_;
     cv::Mat pretreaded_image_;
     cv::Mat used_channel_;
